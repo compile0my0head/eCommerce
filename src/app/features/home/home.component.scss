@@ -72,6 +72,29 @@ swiper-container {
   }
 }
 
+/* Responsive adjustments for hero heights */
+@media (max-width: 1024px) {
+  .hero-slider {
+    height: 80vh;
+    min-height: 520px;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 70vh;
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-slider {
+    height: 60vh;
+    min-height: 360px;
+  }
+}
+
 /* Elegant Ken Burns effect */
 @keyframes kenBurns {
   0% {

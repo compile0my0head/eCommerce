@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersService } from '../../core/services/orders.service';
 import { IOrders } from '../../core/interfaces/iorders';
 import { AddressesService } from '../../core/services/addresses.service';
+import { CartService } from '../../core/services/cart.service';
 import { IAddress } from '../../core/interfaces/iaddress';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private readonly _ActivatedRoute = inject(ActivatedRoute)
   private readonly _OrdersServices = inject(OrdersService)
   private readonly _AddressesService = inject(AddressesService)
+  private readonly _CartService = inject(CartService)
   
   cartId: string | null = "";
   shippingDetails: IOrders = {} as IOrders;
@@ -89,6 +91,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
           next: (res)=>{
             console.log(res);
             if(res.status === 'success') {
+              this._CartService.cartItemCount.next(0);
               window.open(res.session.url, '_self') // opens the stripe payement link (url from api response)
             }
           },
@@ -101,6 +104,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
           next: (res)=>{
             console.log(res);
             if(res.status === 'success') {
+              this._CartService.cartItemCount.next(0);
               this._Router.navigate(['/allorders']);
             }
           },
