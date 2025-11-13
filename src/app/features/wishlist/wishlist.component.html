@@ -1,0 +1,58 @@
+<section class="min-h-screen bg-gradient-to-b from-[#0c021a] via-[#1a0f2d] to-[#251a3f] text-gray-100 flex items-center">
+  <div class="container mx-auto max-w-7xl px-4 py-24">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-white mb-1">My Wishlist</h1>
+        <p class="text-sm text-violet-300">{{ items().length }} {{ items().length === 1 ? 'item' : 'items' }}</p>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    @if (isLoading()) {
+      <div class="flex items-center justify-center py-20">
+        <i class="fas fa-spinner fa-spin text-violet-300 text-2xl"></i>
+      </div>
+    }
+
+    <!-- Error -->
+    @if (!isLoading() && errorMsg()) {
+      <div class="bg-rose-100/20 border border-rose-300/30 text-rose-300 rounded-xl p-4">
+        {{ errorMsg() }}
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && !errorMsg() && items().length === 0) {
+      <div class="text-center py-20">
+        <div class="text-5xl mb-4">🤍</div>
+        <p class="text-gray-300">Your wishlist is empty</p>
+        <a routerLink="/products" class="inline-block mt-6 px-6 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white transition">Browse products</a>
+      </div>
+    }
+
+    <!-- Items Grid -->
+    @if (!isLoading() && items().length) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @for (p of items(); track p.id) {
+          <div class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-violet-900/20 transition-all duration-500">
+            <div class="relative aspect-square overflow-hidden">
+              <img [src]="p.imageCover || p.product?.imageCover" [alt]="p.title || p.product?.title" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+              <button type="button" (click)="remove(p._id || p.id || p.product?._id, p.title || p.product?.title)" class="absolute top-3 right-3 p-2 rounded-full bg-white/80 hover:bg-white transition">
+                <i class="fas fa-heart text-rose-500"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <a [routerLink]="['/products','product-details', (p._id || p.id || p.product?._id)]" class="block font-medium text-white mb-1 line-clamp-1 hover:text-violet-300 transition">
+                {{ p.title || p.product?.title || 'Product' }}
+              </a>
+              <div class="flex items-center justify-between">
+                <span class="text-violet-300 font-semibold">${{ p.price || p.product?.price || '—' }}</span>
+                <a [routerLink]="['/products','product-details', (p._id || p.id || p.product?._id)]" class="text-sm text-violet-300 hover:text-violet-200">View →</a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

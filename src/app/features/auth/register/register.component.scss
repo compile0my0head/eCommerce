@@ -1,0 +1,13 @@
+.is-valid {
+  @apply border-green-400 bg-green-900/20 ring-1 ring-green-400/50 transition-all duration-300;
+}
+
+.is-invalid {
+  @apply border-red-400 bg-red-500/20 ring-1 ring-red-400/50 animate-pulse;
+}
+
+
+
+.animate-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}

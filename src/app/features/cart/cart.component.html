@@ -1,0 +1,119 @@
+<section class="min-h-screen flex flex-col justify-center bg-[#0f071b] text-gray-100 pt-28 pb-12 px-4">
+    <div class="max-w-6xl mx-auto space-y-8 w-full">
+
+        <h1 class="text-3xl font-bold text-center text-violet-200 mb-10">
+            Cart
+        </h1>
+
+        @if (cartDetails.products.length > 0) {
+        <!-- Cart Wrapper -->
+        <div
+            class="flex flex-col justify-center bg-[#1b1330]/60 border border-white/10 rounded-2xl p-6 shadow-[0_0_40px_-12px_rgba(165,125,255,0.3)] mx-auto w-full max-w-5xl">
+            <div class="grid grid-cols-1 divide-y divide-white/10">
+                @for (item of cartDetails.products; track item._id) {
+                <div class="py-6 px-3 grid grid-cols-1 sm:grid-cols-[auto,1fr,auto] gap-6 items-center">
+                    <!-- Product Image -->
+                    <div class="w-full sm:w-28 h-28 flex-shrink-0 mx-auto sm:mx-0">
+                        <img [src]="item.product.imageCover" [alt]="item.product.title"
+                            class="w-full h-full object-cover rounded-lg border border-white/10" />
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-lg font-semibold text-white line-clamp-1">
+                            {{ item.product.title }}
+                        </h2>
+                        <p class="text-sm text-gray-400">
+                            Brand:
+                            <span class="text-gray-200 font-medium">
+                                {{ item.product.brand.name }}
+                            </span>
+                        </p>
+                        <p class="text-sm text-gray-400">
+                            Category:
+                            <span class="text-gray-200 font-medium">
+                                {{ item.product.category.name }}
+                            </span>
+                        </p>
+
+                        <div class="flex items-center gap-4 mt-2">
+                            <span class="text-sm text-gray-400">Quantity:</span>
+
+                            <div
+                                class="flex items-center gap-2 bg-[#120b23] border border-white/10 rounded-lg px-2 py-1">
+                                <button class="text-gray-300 hover:text-violet-400 transition"
+                                    (click)="updateItemQuantity(item.product.id, item.count - 1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="px-3 text-white font-semibold select-none">
+                                    {{ item.count }}
+                                </span>
+                                <button class="text-gray-300 hover:text-violet-400 transition"
+                                    (click)="updateItemQuantity(item.product.id, item.count + 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price + Remove -->
+                    <div class="flex flex-col items-end justify-between h-full gap-4">
+                        <p class="text-lg font-semibold text-violet-300">
+                            <span class="text-sm text-gray-400">Price:</span>
+                            ${{ item.price * item.count }}
+                        </p>
+                        <button class="text-gray-400 hover:text-red-500 transition"
+                            (click)="onRemoveItem(item.product.id)">
+                            <i class="fas fa-trash-alt text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Summary & Actions -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mt-10 gap-4 max-w-5xl mx-auto">
+            <p
+                class="text-xl font-semibold text-violet-200 bg-[#1b1330]/60 px-6 py-3 rounded-lg border border-violet-400/30 shadow-[0_0_15px_-5px_rgba(165,125,255,0.4)]">
+                <!-- <i class="fas fa-coins text-violet-400 mr-2"></i> -->
+                <span class="text-white">Total Price:</span>
+                <span class="text-violet-300 font-bold ml-2">
+                    ${{ cartDetails.totalCartPrice }}
+                </span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button
+                    class="px-8 py-3 rounded-lg bg-transparent border border-violet-300 text-violet-300 hover:bg-violet-300 hover:text-gray-900 transition-all duration-300"
+                    (click)="goBackToShopping()">
+                    ← Continue Shopping
+                </button>
+
+                <button
+                    class="px-8 py-3 rounded-lg bg-transparent border border-red-400 text-red-400 hover:bg-red-400 hover:text-gray-900 transition-all duration-300"
+                    (click)="clearCart()">
+                    <i class="fas fa-trash-alt mr-2"></i> Clear Cart
+                </button>
+
+                <button
+                    class="px-8 py-3 rounded-lg bg-violet-500 text-white hover:bg-violet-400 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(165,125,255,0.5)]"
+                    [routerLink]="['/orders', cartDetails._id]">
+                    Proceed to Checkout →
+                </button>
+            </div>
+        </div>
+        } @else {
+        <!-- Empty Cart -->
+        <div class="flex flex-col items-center justify-center text-center py-32 text-gray-400 min-h-[60vh]">
+            <i class="fas fa-shopping-cart text-6xl mb-6 text-gray-500/70"></i>
+            <p class="text-lg">Your cart is empty.</p>
+            <button
+                class="mt-6 px-6 py-3 bg-violet-500 text-white rounded-lg hover:bg-violet-400 transition-all duration-300"
+                (click)="goBackToShopping()">
+                Continue Shopping
+            </button>
+        </div>
+        }
+    </div>
+</section>

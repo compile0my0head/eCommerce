@@ -1,0 +1,13 @@
+:host {
+  display: flex;              // Use flexbox for the entire layout
+  flex-direction: column;     // Stack navbar, content, and footer vertically
+  min-height: 100vh;          // Full viewport height
+  background-color: #fafafa;  // Soft neutral background for modern feel
+  color: #1a1a1a;             // Standard text color
+  justify-content: space-between;
+}
+
+main {
+  flex: 1;                    // Expands to take up all free space between navbar and footer
+  // padding: 2rem;              // Add inner space around the main content
+}

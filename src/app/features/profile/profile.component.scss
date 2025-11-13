@@ -1,0 +1,7 @@
+// Ensure the profile view always uses the dark gradient and fills viewport
+:host {
+	display: block;
+	min-height: 100vh;
+	background-image: linear-gradient(to bottom, #0c021a, #1a0f2d, #251a3f);
+	color: #f3f4f6;
+}

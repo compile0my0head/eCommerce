@@ -1,0 +1,101 @@
+<div
+    class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-900 to-indigo-950 text-white px-6">
+    <!-- Logo -->
+    <div class="mb-8 flex flex-col items-center">
+        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-3xl font-bold">
+            <span class="text-white">🛍️</span> <!-- You can replace with an <img> later -->
+        </div>
+        <h1 class="mt-3 text-2xl font-semibold tracking-wide">MyShop</h1>
+
+    </div>
+
+    <!-- Form Container -->
+    <div class="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 w-full max-w-md border border-white/10">
+        <h2 class="text-xl font-bold text-center mb-6">Login to Your Account</h2>
+        <p class="text-center text-white/70 mb-5">
+            Start shopping with exclusive offers!
+        </p>
+        <form class="space-y-5" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+
+            <div>
+                <label class="block mb-1 text-sm text-gray-300">Email Address</label>
+                <input formControlName="email" type="email" placeholder="Email" [ngClass]="{
+                    'is-valid': !loginForm.get('email')?.errors && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched),
+                    'is-invalid': loginForm.get('email')?.errors && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+                    }"
+                    class="w-full px-4 py-2 rounded-xl bg-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
+            </div>
+            @if( loginForm.get('email')?.errors && loginForm.get('email')?.touched )
+            {
+            <div>
+                @if( loginForm.get('email')?.getError('required') )
+                {
+                <p class="text-red-400">This field is required</p>
+                }
+                @else if( loginForm.get('email')?.getError('email') )
+                {
+                <p class="text-red-400">This field must be in an email form</p>
+                }
+            </div>
+            }
+            <div>
+                <label class="block mb-1 text-sm text-gray-300">Password</label>
+                <input formControlName="password" type="password" placeholder="password" [ngClass]="{
+                    'is-valid': !loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched),
+                    'is-invalid': loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)
+                    }"
+                    class="w-full px-4 py-2 rounded-xl bg-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition" />
+            </div>
+            <div>
+                @if( loginForm.get('password')?.errors && loginForm.get('password')?.touched )
+                {
+                <div>
+                    @if( loginForm.get('password')?.getError('required') )
+                    {
+                    <p class="text-red-400">This field is required</p>
+                    }
+                    @else if( loginForm.get('password')?.getError('minlength') )
+                    {
+                    <p class="text-red-400">Password is at least 6 character</p>
+                    }
+                </div>
+                }
+            </div>
+
+            <button type="submit"
+                class="w-full mt-3 py-2 bg-purple-600 hover:bg-purple-700 rounded-xl font-semibold text-white transition transform hover:scale-[1.02] active:scale-95">
+                @if(isLoading)
+                {
+                <span><i class="fas fa-spin fa-spinner text-red-300"></i></span>
+                }
+                Login
+            </button>
+
+            @if (errorMsg) {
+            <div
+                class="mt-4 rounded-xl bg-rose-100/70 border border-rose-300/50 text-rose-700 text-sm px-4 py-3 shadow-sm backdrop-blur-sm animate-fadeIn text-center">
+                {{ errorMsg }}
+            </div>
+            }
+
+            @if (successMsg) {
+            <div
+                class="mt-4 rounded-xl bg-green-100/70 border border-green-300/50 text-green-800 text-sm px-4 py-3 shadow-sm backdrop-blur-sm animate-fadeIn text-center">
+                Logged in successfully!
+            </div>
+            }
+
+
+
+        </form>
+
+        <p class="text-sm text-center text-gray-300 mt-6">
+            Can't Login ?
+            <a routerLink="/forgot-password" class="text-purple-400 hover:text-purple-300 underline">Forgot Password</a>
+        </p>
+        <p class="text-sm text-center text-gray-300 mt-6">
+            New User ?
+            <a routerLink="/register" class="text-purple-400 hover:text-purple-300 underline">Create Account</a>
+        </p>
+    </div>
+</div>

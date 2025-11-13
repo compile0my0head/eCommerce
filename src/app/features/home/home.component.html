@@ -1,0 +1,308 @@
+<!-- HERO SECTION: Full-width background slider -->
+<section class="hero-slider pt-16 mt-5 relative overflow-hidden">
+  <!-- Full-width Swiper background -->
+  <swiper-container
+    class="hero-swiper"
+    slides-per-view="1"
+    loop="true"
+    effect="fade"
+    speed="1200"
+    autoplay='{"delay": 4000, "disableOnInteraction": false}'
+  >
+    @for (img of mainSliderImages; track img) {
+      <swiper-slide>
+        <div class="hero-slide" [style.background-image]="'url(' + img + ')'">
+          <!-- Dark overlay for text readability -->
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        </div>
+      </swiper-slide>
+    }
+  </swiper-container>
+
+  <!-- Hero content overlay -->
+  <div class="hero-content absolute inset-0 z-10 flex items-center">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="max-w-2xl space-y-6">
+        <!-- Sale badge -->
+        <!-- <div class="flex items-center gap-3">
+          <div class="bg-violet-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+            <i class="fas fa-tag mr-2"></i>50% OFF
+          </div>
+          <span class="text-white/90 text-sm font-medium">Summer Super Sale</span>
+        </div> -->
+
+        <!-- Main heading -->
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+          Step into Style: Your <br />
+          <span class="text-violet-300">Ultimate MoonShine Destination</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="text-gray-200 text-base md:text-lg max-w-xl leading-relaxed">
+          Go through a journey of fashion and trends with MoonShine. Discover the latest styles, exclusive collections, and unbeatable deals that will elevate your wardrobe to new heights.
+        </p>
+
+        <!-- CTA Button -->
+        <button
+          class="group px-8 py-3.5 bg-gradient-to-r from-violet-900 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-md shadow-lg transition-all duration-300 transform hover:scale-105">
+          Shop Now
+          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative elements -->
+  <div class="absolute top-20 right-10 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-10 left-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+</section>
+
+<!-- THREE FEATURES SECTION -->
+<section class="features-section py-12 bg-gray-50">
+  <div class="container mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Free Shipping -->
+      <div class="feature-card group">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon">
+            <i class="fas fa-truck text-2xl text-amber-600"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Free Shipping</h3>
+            <p class="text-sm text-gray-600">Free shipping for order above $180</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flexible Payment -->
+      <div class="feature-card group">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon">
+            <i class="fas fa-credit-card text-2xl text-amber-600"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Flexible Payment</h3>
+            <p class="text-sm text-gray-600">Multiple secure payment options</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 24/7 Support -->
+      <div class="feature-card group">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon">
+            <i class="fas fa-headset text-2xl text-amber-600"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">24/7 Support</h3>
+            <p class="text-sm text-gray-600">We support online all days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION GRID SECTION -->
+<section class="collection-grid py-16 bg-white">
+  <!-- Header Stripe -->
+  <!-- <div class="header-stripe bg-gradient-to-r from-violet-300 via-purple-600 to-indigo-600 py-4 mb-12">
+    <div class="container mx-auto px-6 lg:px-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-white text-center tracking-wide">
+        Shop by Collection
+      </h2>
+    </div>
+  </div> -->
+
+  <div class="container mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+      <!-- Women's Collection - Takes full height on left -->
+      <div class="collection-card group cursor-pointer bg-gray-50 lg:row-span-2">
+        <div class="relative overflow-hidden rounded-lg h-full">
+          <img [src]="sideImages[0]" alt="For Women's" class="w-full h-full min-h-[500px] lg:h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute top-0 left-0 right-0 p-6">
+            <p class="text-sm font-medium text-gray-700 mb-2">2500+ Items</p>
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">For Women's</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed max-w-xs">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            </p>
+            <ul class="text-sm space-y-1.5 text-gray-700">
+              <li>Blazers</li>
+              <li>T-Shirts and Blouses</li>
+              <li>Dresses</li>
+              <li>Jackets & Coats</li>
+              <li>Jeans</li>
+              <li>Knit</li>
+              <li>Sarees</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Men's Collection - Top right -->
+      <div class="collection-card group cursor-pointer bg-gray-50">
+        <div class="relative overflow-hidden rounded-lg">
+          <img [src]="sideImages[1]" alt="For Men's" class="w-full h-[240px] object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute top-0 left-0 right-0 p-6">
+            <p class="text-sm font-medium text-gray-700 mb-2">1500+ Items</p>
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">For Men's</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed max-w-xs">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            </p>
+            <ul class="text-sm space-y-1.5 text-gray-700">
+              <li>Blazers</li>
+              <li>T-Shirts and Shirts</li>
+              <li>Jackets & Coats</li>
+              <li>Jeans</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accessories Collection - Bottom right -->
+      <div class="collection-card group cursor-pointer bg-gray-50">
+        <div class="relative overflow-hidden rounded-lg">
+          <img [src]="sideImages[2]" alt="Accessories" class="w-full h-[240px] object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute top-0 left-0 right-0 p-6">
+            <p class="text-sm font-medium text-gray-700 mb-2">800+ Items</p>
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">Accessories</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed max-w-xs">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            </p>
+            <ul class="text-sm space-y-1.5 text-gray-700">
+              <li>Handbags</li>
+              <li>Watches</li>
+              <li>Sunglasses</li>
+              <li>Hat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES SECTION (single-row carousel) -->
+<section class="py-16 bg-gradient-to-br from-violet-450 via-purple-300 to-indigo-900">
+  <div class="container mx-auto px-4">
+
+    <h2 class="text-2xl md:text-3xl font-bold text-violet text-center mb-12 tracking-wide">
+      Explore Featured Categories
+    </h2>
+
+    <owl-carousel-o [options]="customOptions" class="category-carousel">
+      @for (category of categoriesList; track category._id) {
+      <ng-template carouselSlide>
+        <a class="relative group cursor-pointer mx-2 block" [routerLink]="['/categories', category._id]">
+          <div class="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+            <img [src]="category.image" [alt]="category.name"
+              class="w-full h-64 object-cover transition duration-700 group-hover:scale-110" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl flex items-end p-6">
+            <h3 class="text-white text-xl font-semibold tracking-wide">
+              {{ category.name }}
+            </h3>
+          </div>
+        </a>
+      </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
+</section>
+
+
+<!-- FEATURED PRODUCTS -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <!-- Top Pagination -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900">
+        Featured Products
+      </h2>
+
+      <div class="flex gap-2">
+        <button (click)="prevPage()" [disabled]="currentPage() === 1"
+          class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-all duration-300">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button (click)="nextPage()" [disabled]="currentPage() === totalPages()"
+          class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-all duration-300">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (product of paginatedProducts() | search: searchTerm; track product.id) {
+      <div (click)="onProductClick(product._id)"
+       class="group bg-gray-50 border border-gray-200 rounded-xl
+          overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+
+        <!-- Image -->
+        <div class="relative aspect-square overflow-hidden bg-gray-100 border-b border-gray-200">
+          <img [src]="product.imageCover" [alt]="product.title"
+            class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+
+          <!-- Quick Actions -->
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+              transition-all duration-300 flex items-center justify-center gap-4">
+            <button (click)="onAddToCart(product._id, product.title ); $event.stopPropagation()"
+              class="p-3 rounded-full cursor-pointer bg-[#1b1330]/90 hover:bg-violet-700 text-white shadow-md transition-all duration-300">
+              <i class="fas fa-shopping-cart cursor-pointer"></i>
+            </button>
+            <button (click)="onAddToWishlist(product, product.title); $event.stopPropagation()"
+              class="p-3 rounded-full cursor-pointer bg-[#1b1330]/90 hover:bg-violet-700 text-white shadow-md transition-all duration-300">
+              <i class="fa-heart cursor-pointer" [ngClass]="isWishlisted(product._id) ? 'fas text-rose-400' : 'far text-violet-200'"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="p-4">
+          <h3 class="font-medium text-gray-900 mb-2 line-clamp-1">
+            {{ product.title | trimText : 3}}
+          </h3>
+
+          <div class="flex items-center gap-1 mb-2">
+            @for (i of [1, 2, 3, 4, 5]; track i) {
+            <i class="fas fa-star text-sm" class="fas fa-star text-sm"
+            [attr.style]="starFill(product.ratingsAverage, i)"></i>
+            }
+            <span class="text-sm text-gray-500 ml-1">
+              {{ product.ratingsAverage.toFixed(1) || '—' }}
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-lg font-bold text-gray-900">
+              ${{ product.price }}
+            </span>
+            <button (click)="onViewDetails(product)"
+              class="text-sm font-semibold text-violet-700 hover:text-violet-900 transition-all underline underline-offset-4 decoration-violet-300">
+              View Details →
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Bottom Pagination -->
+    <div class="mt-10 flex flex-col items-center gap-4">
+      <div class="flex items-center gap-4">
+        <button (click)="prevPage()" [disabled]="currentPage() === 1"
+          class="p-3 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-all duration-300">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span class="text-sm text-gray-700">
+          Page {{ currentPage() }} of {{ totalPages() }}
+        </span>
+        <button (click)="nextPage()" [disabled]="currentPage() === totalPages()"
+          class="p-3 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-all duration-300">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

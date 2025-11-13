@@ -1,0 +1,190 @@
+<section class="min-h-screen bg-gradient-to-b from-[#0c021a] via-[#1a0f2d] to-[#251a3f]">
+  <div class="container mx-auto px-6 py-24 max-w-3xl">
+    <!-- Logo -->
+    <div class="mb-8 flex flex-col items-center">
+      <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-3xl font-bold">
+        <span class="text-white">🛍️</span> 
+      </div>
+      <h1 class="mt-3 text-2xl font-semibold tracking-wide text-white">eShop</h1>
+    </div>
+
+    <!-- Orders Form Container -->
+    <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-xl shadow-lg p-6">
+      <h2 class="text-xl font-semibold text-white mb-6">
+        Shipping Information
+      </h2>
+
+      <!-- Saved Addresses Section -->
+      @if (addressesList.length > 0 && !useManualEntry) {
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-medium text-gray-300">Choose a saved address</h3>
+            <button type="button" (click)="toggleManualEntry()" 
+              class="text-sm text-violet-400 hover:text-violet-300 transition cursor-pointer">
+              Enter manually →
+            </button>
+          </div>
+          
+          <div class="grid gap-3 mb-4">
+            @for (address of addressesList; track address._id) {
+              <div (click)="selectAddress(address)"
+                [class]="selectedAddressId === address._id 
+                  ? 'bg-violet-600/20 border-violet-500' 
+                  : 'bg-white/5 border-white/10 hover:border-violet-500/50'"
+                class="p-4 rounded-lg border-2 transition-all cursor-pointer group">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-violet-600/20 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-map-marker-alt text-sm text-violet-400"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-sm font-semibold text-white mb-1">{{ address.name }}</h4>
+                    <p class="text-xs text-gray-400 line-clamp-1">{{ address.details }}</p>
+                    <div class="flex gap-4 mt-2 text-xs text-gray-400">
+                      <span><i class="fas fa-city mr-1"></i>{{ address.city }}</span>
+                      <span><i class="fas fa-phone mr-1"></i>{{ address.phone }}</span>
+                    </div>
+                  </div>
+                  @if (selectedAddressId === address._id) {
+                    <i class="fas fa-check-circle text-violet-400"></i>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Manual Entry Toggle -->
+      @if (addressesList.length > 0 && useManualEntry) {
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-base font-medium text-gray-300">Enter address manually</h3>
+          <button type="button" (click)="useManualEntry = false" 
+            class="text-sm text-violet-400 hover:text-violet-300 transition cursor-pointer">
+            ← Use saved address
+          </button>
+        </div>
+      }
+
+      <!-- Payment Method Selection -->
+      <div class="mb-6">
+        <h3 class="text-base font-medium text-gray-300 mb-4">Payment Method</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" (click)="paymentMethod = 'stripe'"
+            [class]="paymentMethod === 'stripe' 
+              ? 'bg-violet-600/30 border-violet-500' 
+              : 'bg-white/5 border-white/10 hover:border-violet-500/50'"
+            class="p-4 rounded-lg border-2 transition-all cursor-pointer">
+            <div class="flex flex-col items-center gap-2">
+              <i class="fas fa-credit-card text-2xl text-violet-400"></i>
+              <span class="text-sm font-medium text-white">Stripe</span>
+              @if (paymentMethod === 'stripe') {
+                <i class="fas fa-check-circle text-violet-400 text-sm"></i>
+              }
+            </div>
+          </button>
+          
+          <button type="button" (click)="paymentMethod = 'cash'"
+            [class]="paymentMethod === 'cash' 
+              ? 'bg-violet-600/30 border-violet-500' 
+              : 'bg-white/5 border-white/10 hover:border-violet-500/50'"
+            class="p-4 rounded-lg border-2 transition-all cursor-pointer">
+            <div class="flex flex-col items-center gap-2">
+              <i class="fas fa-money-bill-wave text-2xl text-violet-400"></i>
+              <span class="text-sm font-medium text-white">Cash on Delivery</span>
+              @if (paymentMethod === 'cash') {
+                <i class="fas fa-check-circle text-violet-400 text-sm"></i>
+              }
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Address Form -->
+      <form [formGroup]="orders" class="space-y-4">
+        <!-- Address Details -->
+        <div class="group">
+          <label class="block text-sm text-gray-400 mb-2">Address Details</label>
+          <input
+            formControlName="details"
+            type="text"
+            placeholder="Street, Building, Apartment..."
+            class="w-full p-3 rounded-xl bg-[#12071F] text-gray-100 placeholder-gray-500 border border-violet-800 focus:border-violet-400 outline-none transition-all duration-200"
+          />
+          @if (orders.get('details')?.invalid && orders.get('details')?.touched) {
+            <small class="text-rose-500 text-xs mt-1 block">
+              Please enter your address details.
+            </small>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div class="group">
+          <label class="block text-sm text-gray-400 mb-2">Phone Number</label>
+          <input
+            formControlName="phone"
+            type="text"
+            placeholder="01XXXXXXXXX"
+            class="w-full p-3 rounded-xl bg-[#12071F] text-gray-100 placeholder-gray-500 border border-violet-800 focus:border-violet-400 outline-none transition-all duration-200"
+          />
+          @if (orders.get('phone')?.invalid && orders.get('phone')?.touched) {
+            <small class="text-rose-500 text-xs mt-1 block">
+              Please enter a valid Egyptian phone number.
+            </small>
+          }
+        </div>
+
+        <!-- City -->
+        <div class="group">
+          <label class="block text-sm text-gray-400 mb-2">City</label>
+          <input
+            formControlName="city"
+            type="text"
+            placeholder="Cairo, Alexandria, etc."
+            class="w-full p-3 rounded-xl bg-[#12071F] text-gray-100 placeholder-gray-500 border border-violet-800 focus:border-violet-400 outline-none transition-all duration-200"
+          />
+          @if (orders.get('city')?.invalid && orders.get('city')?.touched) {
+            <small class="text-rose-500 text-xs mt-1 block">
+              Please enter your city name.
+            </small>
+          }
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <!-- Back to Cart -->
+          <button
+            type="button"
+            (click)="goBackToCart()"
+            class="w-full sm:w-1/2 flex items-center justify-center gap-2 bg-violet-800/50 text-violet-200 border border-violet-700 rounded-xl py-3 font-medium hover:bg-violet-700/60 hover:text-white transition duration-200 cursor-pointer"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            Back to Cart
+          </button>
+
+          <!-- Checkout -->
+          <button
+            type="button"
+            [disabled]="orders.invalid"
+            (click)="onCheckout()"
+            class="w-full sm:w-1/2 bg-gradient-to-r from-violet-600 to-fuchsia-700 text-white border border-green-200 rounded-xl py-3 font-semibold shadow-md hover:shadow-lg hover:brightness-110 active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            @if (paymentMethod === 'stripe') {
+              <span><i class="fas fa-credit-card mr-2"></i>Pay with Stripe</span>
+            } @else {
+              <span><i class="fas fa-money-bill-wave mr-2"></i>Place Order</span>
+            }
+          </button>
+        </div>
+      </form>
+
+      <!-- Validation Alert -->
+      @if (orders.invalid && orders.touched) {
+        <div
+          class="mt-6 text-center text-sm text-rose-400 bg-rose-900/20 border border-rose-700/60 rounded-xl py-2 animate-pulse"
+        >
+          Please fill all required fields correctly.
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -21,8 +21,17 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.21",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@ngneat/tailwind": "^7.0.3",
+    "@sweetalert2/ngx-sweetalert2": "^14.0.1",
     "express": "^4.18.2",
+    "jwt-decode": "^4.0.0",
+    "ngx-owl-carousel-o": "^18.0.1",
+    "ngx-spinner": "^18.0.0",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.26.3",
+    "swiper": "^12.0.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -33,12 +42,15 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "autoprefixer": "^10.4.21",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
     "typescript": "~5.5.2"
   }
 }

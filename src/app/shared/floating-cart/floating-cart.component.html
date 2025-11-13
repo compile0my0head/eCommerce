@@ -1,0 +1,83 @@
+<!-- Floating Cart Sidebar -->
+@if (shouldShow) {
+<div class="floating-cart-container" [class.minimized]="isMinimized()">
+  <!-- Header -->
+  <div class="cart-header">
+    <div class="flex items-center gap-2">
+      <i class="fas fa-shopping-bag text-violet-400"></i>
+      <h3 class="text-lg font-bold text-white">Your Cart</h3>
+      <span class="cart-badge">{{ cartDetails.products.length }}</span>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <button (click)="toggleMinimize()" class="icon-btn" title="Toggle minimize">
+        <i class="fas" [ngClass]="isMinimized() ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </button>
+      <button (click)="closeCart()" class="icon-btn" title="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  @if (!isMinimized()) {
+  <!-- Cart Body -->
+  <div class="cart-body">
+    <div class="cart-items">
+      @for (item of cartDetails.products; track item._id) {
+      <div class="cart-item">
+        <!-- Item Image -->
+        <div class="item-image">
+          <img [src]="item.product.imageCover" [alt]="item.product.title" />
+        </div>
+
+        <!-- Item Info -->
+        <div class="item-info">
+          <h4 class="item-title">{{ item.product.title }}</h4>
+          <p class="item-price">${{ item.price }}</p>
+          
+          <!-- Quantity Controls -->
+          <div class="quantity-controls">
+            <button (click)="updateQuantity(item.product.id, item.count - 1)" class="qty-btn">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="qty-display">{{ item.count }}</span>
+            <button (click)="updateQuantity(item.product.id, item.count + 1)" class="qty-btn">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Item Actions -->
+        <div class="item-actions">
+          <p class="item-total">${{ item.price * item.count }}</p>
+          <button (click)="removeItem(item.product.id)" class="remove-btn" title="Remove item">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Cart Footer -->
+  <div class="cart-footer">
+    <div class="total-section">
+      <span class="total-label">Total:</span>
+      <span class="total-price">${{ cartDetails.totalCartPrice }}</span>
+    </div>
+
+    <div class="footer-actions">
+      <button (click)="clearCart()" class="clear-btn">
+        <i class="fas fa-trash-alt mr-2"></i>
+        Clear Cart
+      </button>
+      
+      <button (click)="proceedToCheckout()" class="checkout-btn">
+        <span>Checkout</span>
+        <i class="fas fa-arrow-right ml-2"></i>
+      </button>
+    </div>
+  </div>
+  }
+</div>
+}
