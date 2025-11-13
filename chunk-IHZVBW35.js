@@ -1,0 +1,1 @@
+import{c as t,v as a}from"./chunk-ABLYTEQI.js";var c=class e{searchTerm=new t("");searchTerm$=this.searchTerm.asObservable();updateSearchTerm(r){this.searchTerm.next(r)}static \u0275fac=function(i){return new(i||e)};static \u0275prov=a({token:e,factory:e.\u0275fac,providedIn:"root"})};export{c as a};
