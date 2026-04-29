@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { CartService } from '../../../core/services/cart.service';
+import { WishlistService } from '../../../core/services/wishlist.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule, NgClass } from "@angular/common";
 @Component({
@@ -18,6 +20,8 @@ export class LoginComponent {
   errorMsg: string = "";
   private readonly _Router = inject(Router)
   private readonly _AuthService = inject(AuthService)
+  private readonly _CartService = inject(CartService)
+  private readonly _WishlistService = inject(WishlistService)
 
   loginForm: FormGroup = new FormGroup(
     {
@@ -42,6 +46,10 @@ export class LoginComponent {
             localStorage.setItem('userToken', res.token)
             // decode token
             this._AuthService.saveUserData()
+
+            // refresh cart/wishlist counts now that token exists
+            try { this._CartService.refreshCartCount(); } catch {}
+            try { this._WishlistService.refreshWishlistCount(); } catch {}
 
             setTimeout(() => {
               this._Router.navigate(['/home'])

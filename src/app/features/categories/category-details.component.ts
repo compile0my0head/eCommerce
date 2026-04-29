@@ -100,6 +100,8 @@ export class CategoryDetailsComponent implements OnInit {
       next: (res) => {
         const trimmed = this.trimPipe.transform(productTitle, 3);
         this._Alert.toast(`"${trimmed}"<br> Added To Cart`, 'success');
+        // update global cart count so navbar/floating-cart refresh
+        try { this._Cart.cartItemCount.next(res.numOfCartItems); } catch {}
       },
       error: () => this._Alert.toast('Failed to add item', 'error')
     });

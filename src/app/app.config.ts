@@ -8,6 +8,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { appRoutes } from './app.routes';
 import { headerInterceptor } from './core/interceptors/header.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor'; // our spinner interceptor
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         headerInterceptor,
         loadingInterceptor, // <-- spinner for all requests
+        errorInterceptor,
       ])
     ),
     importProvidersFrom(

@@ -5,6 +5,8 @@ import { environment } from '../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import {IUserData} from '../interfaces/IUserData';
 import { Router } from '@angular/router';
+import { CartService } from './cart.service';
+import { WishlistService } from './wishlist.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class AuthService {
 private readonly _httpClient = inject(HttpClient)
 userData: IUserData | null = null; // allowing null until set
 _Router = inject(Router)
+private readonly _CartService = inject(CartService);
+private readonly _WishlistService = inject(WishlistService);
 
 setRegisterForm (data: object): Observable<any> // parameter "data" has the data we are sending to the backend from the registration form
 {
@@ -35,6 +39,9 @@ saveUserData(): void {
 logOut() {
   localStorage.removeItem('userToken');
   this.userData = null;
+  // Reset counts and navigate to login
+  try { this._CartService.cartItemCount.next(0); } catch {}
+  try { this._WishlistService.wishlistItemCount.next(0); } catch {}
   this._Router.navigate(['/login'])
 }
 

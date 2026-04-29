@@ -9,10 +9,23 @@ export class WishlistService {
   private readonly _HttpClient = inject(HttpClient);
 
   // maintain a header like other services (cart) for consistency
-  header: any = { token: localStorage.getItem('userToken') };
+  get header(): any { return { token: localStorage.getItem('userToken') }; }
 
   // count for navbar badges, etc.
   wishlistItemCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  // Refresh wishlist count from backend and update BehaviorSubject
+  refreshWishlistCount(): void {
+    this.getWishlist().subscribe({
+      next: (res: any) => {
+        const items = res?.data ?? [];
+        this.wishlistItemCount.next(Array.isArray(items) ? items.length : 0);
+      },
+      error: () => {
+        this.wishlistItemCount.next(0);
+      }
+    });
+  }
 
   addToWishlist(productId: string): Observable<any> {
     return this._HttpClient
