@@ -1,27 +1,113 @@
-# ECommerce
+# E-Commerce Platform
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+A production-focused Angular 18 e-commerce application with authentication, product browsing, cart and wishlist management, profile pages, and order checkout flows.
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project is built with Angular 18 and follows a feature-based structure with standalone components, route guards, HTTP interceptors, and lazy-loaded routes. It is designed to be deployed to GitHub Pages and uses a production build base href of `/eCommerce/`.
 
-## Code scaffolding
+## Key Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Authentication with login, registration, forgot password, verify code, and reset password flows
+- Protected routes for cart, wishlist, profile, and orders
+- Product browsing with category and product detail views
+- Cart and wishlist management
+- Checkout and order placement flow
+- Loading state and request header interceptors
+- Responsive UI built with Angular and SCSS
+
+## Tech Stack
+
+- Angular 18
+- TypeScript
+- RxJS
+- SCSS
+- Angular Router
+- Angular HTTP Interceptors
+- ngx-spinner
+- ngx-owl-carousel-o
+- SweetAlert2
+
+## Project Structure
+
+- `src/app/core` - guards, interceptors, services, interfaces, and shared logic
+- `src/app/features` - feature modules and route entries for the main screens
+- `src/app/layout` - shell, navbar, and footer
+- `src/app/shared` - reusable UI pieces
+
+## Requirements
+
+- Node.js 20 or newer is recommended
+- npm
+
+## Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm start
+```
+
+Open:
+
+```text
+http://localhost:4200/
+```
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Create a production build:
 
-## Running unit tests
+```bash
+npm run build:prod
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The production output is written to `dist/e-commerce/browser`.
 
-## Running end-to-end tests
+## Deploy to GitHub Pages
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+This repository includes an automated workflow in `.github/workflows/deploy.yml` that builds and publishes the app when changes are pushed to `main`.
 
-## Further help
+Manual deployment is also available:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm run deploy
+```
+
+## GitHub Pages Configuration
+
+To confirm GitHub Pages is configured correctly:
+
+1. Open your repository on GitHub.
+2. Go to `Settings`.
+3. Select `Pages` from the left sidebar.
+4. Under `Build and deployment`, check the `Source` setting.
+5. If you use the workflow in this repo, the source should be set to `GitHub Actions`.
+6. If you use the older branch-based setup, the source should be `Deploy from a branch`.
+7. If using the branch-based setup, confirm:
+   - Branch is `gh-pages`
+   - Folder is `/ (root)`
+8. Save any changes, then wait for the latest workflow run or deployment to finish.
+9. Open the Pages URL and verify the updated content is live.
+
+If the site still does not update, check the `Actions` tab for the latest workflow run and confirm it completed successfully.
+
+## Development Notes
+
+- The app uses route guards to protect authenticated routes.
+- HTTP interceptors attach auth headers and handle expired or unauthorized requests.
+- The production build uses the correct base href for GitHub Pages hosting under `/eCommerce/`.
+
+## Angular CLI
+
+For additional Angular CLI help, run:
+
+```bash
+ng help
+```
