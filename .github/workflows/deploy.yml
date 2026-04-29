@@ -32,7 +32,7 @@ jobs:
         run: npm run build:prod
 
       - name: Upload build artifact for Pages
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist/e-commerce/browser
 
@@ -42,7 +42,7 @@ jobs:
     needs: build
     steps:
       - name: Download Pages artifact
-        uses: actions/download-pages-artifact@v1
+        uses: actions/download-pages-artifact@v2
 
       - name: Deploy to GitHub Pages
         id: deploy-pages
