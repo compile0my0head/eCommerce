@@ -1,4 +1,4 @@
-name: Deploy Angular app to GitHub Pages
+name: Publish to GitHub Pages (Actions)
 
 on:
   push:
@@ -7,17 +7,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build production site
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -26,10 +28,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build production app
+      - name: Build production
         run: npm run build:prod
 
+      - name: Upload build artifact for Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist/e-commerce/browser
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Pages artifact
+        uses: actions/download-pages-artifact@v1
+
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/e-commerce/browser --no-silent
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: deploy-pages
+        uses: actions/deploy-pages@v1
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-pages.outputs.page_url }}
